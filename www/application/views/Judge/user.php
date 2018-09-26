@@ -62,7 +62,7 @@ foreach ($classProb as $class=>$probs) { ?>
 <span class="autoWA">待人工確認</span>
 <span class="WA">答案錯誤</span>
 <span class="AC">答案正確</span>
-<span class="codeAC">程式碼正確</span>
+<span class="codeAC">人工確認正確</span>
 </p>
 <table>
 <tr><th>題號</th><th>上傳</th><th>解題時間</th></tr>

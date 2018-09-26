@@ -54,6 +54,7 @@ a {
 <?php 
 include('header.inc.php');
 
+krsort($classUser, SORT_STRING);
 foreach ($classUser as $class=>$users) { ?>
 <h2><?=$class?>班</h2>
 <p style="border:solid 3px #EEE; padding:0.3em; border-radius:0.3em">
@@ -62,12 +63,12 @@ foreach ($classUser as $class=>$users) { ?>
 <span class="autoWA">待人工確認</span>
 <span class="WA">答案錯誤</span>
 <span class="AC">答案正確</span>
-<span class="codeAC">程式碼正確</span>
+<span class="codeAC">人工確認正確</span>
 </p>
 <table>
 <?php
 	echo "<tr><td>User</td>";
-	foreach ($classProb[$class] as $prob) {
+	if (isset($classProb[$class])) foreach ($classProb[$class] as $prob) {
 		echo "<th><a href=\"".site_url("Judge/judging/$prob/$class")."\">$prob</a></th>";
 	}
 	echo "</tr>";
@@ -75,7 +76,7 @@ foreach ($classUser as $class=>$users) { ?>
 	foreach ($users as $uid=>$user) {
 		if (!$user) $user = $uid;
 		echo "<tr><th><a href=\"".site_url('Judge/user/'.urlencode($uid))."\">$user</a></th>";
-		foreach ($classProb[$class] as $prob) {
+		if (isset($classProb[$class])) foreach ($classProb[$class] as $prob) {
 			if (isset($acProbs[$uid][$prob])) {
 				$result = $acProbs[$uid][$prob]['result'];
 				$sol_id = $acProbs[$uid][$prob]['solution_id'];

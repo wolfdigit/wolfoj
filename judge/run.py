@@ -14,10 +14,11 @@ fcntl.fcntl(p.stdout, fcntl.F_SETFL, flags)
 
 def tryRead(pipe):
 	try:
-		time.sleep(0.03)
+		time.sleep(0.33)
 		retv = pipe.read()
 	except:
-		retv = "[]"
+		#retv = "[]"
+		retv = ""
 	return retv
 
 sys.stdout.write(tryRead(p.stdout))

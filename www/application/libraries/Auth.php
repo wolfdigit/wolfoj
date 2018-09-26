@@ -14,7 +14,7 @@ private $tokenURL = 'https://www.googleapis.com/oauth2/v4/token';
 //$apiURLBase = 'https://www.googleapis.com/plus/v1/people/me';
 //$apiURLBase = 'https://www.googleapis.com/oauth2/v2/userinfo';
 private $apiURLBase = 'https://www.googleapis.com/userinfo/v2/me';
-private $callbackURL = 'http://wolfoj.wolfdigit.ga/OJ2/user/getcode';
+private $callbackURL = 'http://wolfoj.wolfdigit.csie.org/OJ2/user/getcode';
 	public function __construct() {
 		$CI = &get_instance();
 		$CI->load->library('session');

@@ -23,10 +23,10 @@ class Judge extends CI_Controller {
 		//var_dump($classUser);
 		$acProbs = array();
 		#$results = $this->db->get_where('solution', "result IN ('AC', 'codeAC')")->result();
-		$results = $this->db->get('solution')->result();
-		$o = array('wait'=>0, 'CE'=>1, 'autoWA'=>2, 'WA'=>3, 'AC'=>4, 'codeAC'=>5);
+		$results = $this->db->order_by('solution_id', 'desc')->get('solution')->result();
+		$o = array('wait'=>0, 'CE'=>1, 'autoWA'=>3, 'WA'=>2, 'AC'=>4, 'codeAC'=>5);
 		foreach ($results as $row) {
-			if (!isset($acProbs[$row->user_id][$row->problem_id]) || $o[ $acProbs[$row->user_id][$row->problem_id]['result'] ] < $o[ $row->result ]) {
+			if (!isset($acProbs[$row->user_id][$row->problem_id]) || $o[ $row->result ] > $o[ $acProbs[$row->user_id][$row->problem_id]['result'] ] ) {
 				$acProbs[$row->user_id][$row->problem_id] = array('result'=>$row->result, 'solution_id'=>$row->solution_id);
 			}
 		}

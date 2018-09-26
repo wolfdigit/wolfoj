@@ -13,7 +13,7 @@ cd $RUNPATH
 
 wget $HTTPBASE/api/code/$FILE -O $FILE
 rm -rf a.out
-if [ x`head $FILE | grep 'stdio'` != x'' ]; then
+if [ x"`head $FILE | grep 'stdio'`" != x"" ]; then
 	$(dirname "$0")/inject.py < $FILE > real.cpp
 	g++ real.cpp -o a.out > CE.txt 2>&1
 else

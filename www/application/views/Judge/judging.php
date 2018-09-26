@@ -29,7 +29,7 @@ if (!isset($info)) {
 	echo '<p><a href="'.site_url('Judge').'">回列表</a></p>';
 	die();
 }
-var_dump($info);
+#var_dump($info);
 ?>
 <p><a href="<?=site_url('Judge')?>">回列表</a></p>
 <h1>solution #<?=$info->solution_id?></h1>

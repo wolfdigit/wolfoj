@@ -5,6 +5,9 @@ $this->load->helper('url');
 <html>
 <head>
 <style>
+tr {
+	height: 1.7em;
+}
 a {
 	color: inherit;
 }
@@ -59,10 +62,10 @@ foreach ($classProb as $class=>$probs) { ?>
 <p style="border:solid 3px #EEE; padding:0.3em; border-radius:0.3em">
 <span class="wait">等待中</span>
 <span class="CE">編譯錯誤</span>
+<span class="AC">答案正確</span>
 <span class="autoWA">待人工確認</span>
 <span class="WA">答案錯誤</span>
-<span class="AC">答案正確</span>
-<span class="codeAC">程式碼正確</span>
+<span class="codeAC">人工確認正確</span>
 </p>
 <table>
 <tr><th>題號</th><th>上傳</th><th>解題時間</th></tr>
