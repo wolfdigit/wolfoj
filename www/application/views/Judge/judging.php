@@ -33,7 +33,8 @@ if (!isset($info)) {
 ?>
 <p><a href="<?=site_url('Judge')?>">回列表</a></p>
 <h1>solution #<?=$info->solution_id?></h1>
-<h2>prob <?=$info->problem_id?> by <?=$info->user_id?></h2>
+<h2>prob <?=$info->problem_id?></h2>
+<h2>by <?=$info->nick?>(<?=$info->user_id?>)</h2>
 <p>result: <?=$info->result?></p>
 <p>time: <?=$info->in_date?></p>
 

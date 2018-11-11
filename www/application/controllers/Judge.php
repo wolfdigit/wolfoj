@@ -49,10 +49,10 @@ class Judge extends CI_Controller {
 		}
 		else {
 			if ($prob!=null) {
-				$result = $this->db->where(array('problem_id'=>$prob, 'result'=>'autoWA'))->order_by('in_date', 'desc')->limit(1)->get('solution')->result();
+				$result = $this->db->join('class_user', 'class_user.user_id = solution.user_id')->where(array('problem_id'=>$prob, 'result'=>'autoWA'))->order_by('in_date', 'desc')->limit(1)->get('solution')->result();
 			}
 			else {
-				$result = $this->db->where(array('result'=>'autoWA'))->order_by('in_date', 'desc')->limit(1)->get('solution')->result();
+				$result = $this->db->join('class_user', 'class_user.user_id = solution.user_id')->where(array('result'=>'autoWA'))->order_by('in_date', 'desc')->limit(1)->get('solution')->result();
 			}
 		}
 		#var_dump($result);
@@ -81,7 +81,7 @@ class Judge extends CI_Controller {
 		if ($this->auth->user()!=JUDGE) show_404();
 		if ($sol_id==null) show_404();
 
-		$result = $this->db->get_where('solution', array('solution_id'=>$sol_id))->result();
+		$result = $this->db->join('class_user', 'class_user.user_id = solution.user_id')->get_where('solution', array('solution_id'=>$sol_id))->result();
 		# var_dump($result);
 		if (count($result)==0) show_404();
 		$info = $result[0];

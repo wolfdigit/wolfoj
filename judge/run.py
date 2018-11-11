@@ -27,4 +27,5 @@ for line in sys.stdin.readlines():
 	p.stdin.write(line)
 	sys.stdout.write(tryRead(p.stdout))
 
+p.stdin.close()
 sys.stdout.write(tryRead(p.stdout))
