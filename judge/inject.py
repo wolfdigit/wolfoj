@@ -3,9 +3,8 @@
 import sys
 import re
 
-for line in sys.stdin.readlines():
-	sys.stdout.write(line)
-	match = re.search('main\s*\(\s*\)', line)
-	#print match
-	if match:
-		sys.stdout.write("setbuf(stdout, NULL);"+"\n")
+lines = ''.join(sys.stdin.readlines())
+
+newStr = '    setbuf(stdout, NULL);'
+newlines = re.sub(r'(main\s*\([^\)]*\)\s*\{)', r'\1'+newStr, lines)
+print newlines
