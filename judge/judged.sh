@@ -13,8 +13,8 @@ while true; do
 	PROB=`tail -1 /tmp/job`
 
 	if [ x"$RID" == x"" ]; then
-		echo `date`: "no job is good job! waiting 15 secs ..."
-		sleep 15
+		echo `date`: "no job is good job! waiting 30 secs ..."
+		sleep 30
 		continue
 	fi
 

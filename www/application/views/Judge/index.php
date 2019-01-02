@@ -57,6 +57,7 @@ include('header.inc.php');
 krsort($classUser, SORT_STRING);
 foreach ($classUser as $class=>$users) { ?>
 <h2><?=$class?>班</h2>
+<a href="<?=site_url("Judge/csv")?>">export csv</a>
 <p style="border:solid 3px #EEE; padding:0.3em; border-radius:0.3em">
 <span class="wait">等待中</span>
 <span class="CE">編譯錯誤</span>

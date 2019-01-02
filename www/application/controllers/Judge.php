@@ -24,7 +24,7 @@ class Judge extends CI_Controller {
 		$acProbs = array();
 		#$results = $this->db->get_where('solution', "result IN ('AC', 'codeAC')")->result();
 		$results = $this->db->order_by('solution_id', 'desc')->get('solution')->result();
-		$o = array('wait'=>0, 'CE'=>1, 'autoWA'=>3, 'WA'=>2, 'AC'=>4, 'codeAC'=>5);
+		$o = array('wait'=>0, 'CE'=>1, 'autoWA'=>3, 'WA'=>2, 'codeAC'=>4, 'AC'=>5);
 		foreach ($results as $row) {
 			if (!isset($acProbs[$row->user_id][$row->problem_id]) || $o[ $row->result ] > $o[ $acProbs[$row->user_id][$row->problem_id]['result'] ] ) {
 				$acProbs[$row->user_id][$row->problem_id] = array('result'=>$row->result, 'solution_id'=>$row->solution_id);
@@ -34,6 +34,37 @@ class Judge extends CI_Controller {
 
 
 		$this->load->view('Judge/index', array('classProb'=>$classProb, 'classUser'=>$classUser, 'acProbs'=>$acProbs));
+	}
+
+	public function csv() {
+		$this->auth->needlogin();
+		if ($this->auth->user()!=JUDGE) show_404();
+		//
+		$classProb = array();
+		$results = $this->db->order_by('class_id, prob_order')->get('class_prob')->result();
+		foreach ($results as $row) {
+			$classProb[$row->class_id][$row->prob_order] = $row->problem_id;
+		}
+
+		$classUser = array();
+		$results = $this->db->order_by('class_id, nick')->get('class_user')->result();
+		foreach ($results as $row) {
+			$classUser[$row->class_id][$row->user_id] = $row->nick;
+		}
+		//var_dump($classUser);
+		$acProbs = array();
+		#$results = $this->db->get_where('solution', "result IN ('AC', 'codeAC')")->result();
+		$results = $this->db->order_by('solution_id', 'desc')->get('solution')->result();
+		$o = array('wait'=>0, 'CE'=>1, 'autoWA'=>3, 'WA'=>2, 'codeAC'=>4, 'AC'=>5);
+		foreach ($results as $row) {
+			if (!isset($acProbs[$row->user_id][$row->problem_id]) || $o[ $row->result ] > $o[ $acProbs[$row->user_id][$row->problem_id]['result'] ] ) {
+				$acProbs[$row->user_id][$row->problem_id] = array('result'=>$row->result, 'solution_id'=>$row->solution_id);
+			}
+		}
+		//var_dump($acProbs);
+
+
+		$this->load->view('Judge/csv', array('classProb'=>$classProb, 'classUser'=>$classUser, 'acProbs'=>$acProbs));
 	}
 
 	private function get_file($fn) {
