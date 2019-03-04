@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 define('SOLPATH', '/var/wolfoj/solutions/');
 define('DATAPATH', '/var/wolfoj/testdata/');
 define('RESULTPATH', '/var/wolfoj/results/');
-define('JUDGE', 'hsinyiho@lssh.tp.edu.tw');
+//define('JUDGE', 'hsinyiho@lssh.tp.edu.tw');
 
 function diff($content1, $content2) {
 	$arr1 = explode("\n", $content1);

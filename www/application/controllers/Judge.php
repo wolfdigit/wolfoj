@@ -4,10 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //define('SOLPATH', '/var/wolfoj/solutions/');
 require_once('Const.inc.php');
 
+function userIsJudge($user) {
+	return $user=='hsinyiho@lssh.tp.edu.tw' ||
+	       $user=='hlf@lssh.tp.edu.tw';
+}
+
 class Judge extends CI_Controller {
 	public function index() {
 		$this->auth->needlogin();
-		if ($this->auth->user()!=JUDGE) show_404();
+		if (!userIsJudge($this->auth->user())) show_404();
 		//
 		$classProb = array();
 		$results = $this->db->order_by('class_id, prob_order')->get('class_prob')->result();
@@ -38,7 +43,7 @@ class Judge extends CI_Controller {
 
 	public function csv() {
 		$this->auth->needlogin();
-		if ($this->auth->user()!=JUDGE) show_404();
+		if (!userIsJudge($this->auth->user())) show_404();
 		//
 		$classProb = array();
 		$results = $this->db->order_by('class_id, prob_order')->get('class_prob')->result();
@@ -73,7 +78,7 @@ class Judge extends CI_Controller {
 	}
 	public function judging($prob=null, $class=null) {
 		$this->auth->needlogin();
-		if ($this->auth->user()!=JUDGE) show_404();
+		if (!userIsJudge($this->auth->user())) show_404();
 		#if ($prob==null) show_404();
 		if ($class!=null) {
 			$result = $this->db->join('class_user', 'class_user.user_id = solution.user_id')->where(array('solution.problem_id'=>$prob, 'class_user.class_id'=>$class, 'solution.result'=>'autoWA'))->order_by('in_date', 'desc')->limit(1)->get('solution')->result();
@@ -109,7 +114,7 @@ class Judge extends CI_Controller {
 
 	public function judge_one($sol_id=null) {
 		$this->auth->needlogin();
-		if ($this->auth->user()!=JUDGE) show_404();
+		if (!userIsJudge($this->auth->user())) show_404();
 		if ($sol_id==null) show_404();
 
 		$result = $this->db->join('class_user', 'class_user.user_id = solution.user_id')->get_where('solution', array('solution_id'=>$sol_id))->result();
@@ -131,7 +136,7 @@ class Judge extends CI_Controller {
 	public function do_judge($sol_id=null) {
 		if (!isset($sol_id)) show_404();
 		$this->auth->needlogin();
-		if ($this->auth->user()!=JUDGE) show_404();
+		if (!userIsJudge($this->auth->user())) show_404();
 		
 		//var_dump($this->input->post());
 		if ($this->input->post('result')=='WA') {
@@ -150,7 +155,7 @@ class Judge extends CI_Controller {
 	public function user($user=null) {
 		if ($user==null) show_404();
 		$this->auth->needlogin();
-		if ($this->auth->user()!=JUDGE) show_404();
+		if (!userIsJudge($this->auth->user())) show_404();
 
 		$classProb = array();
 		$results = $this->db->join('class_user', 'class_user.class_id = class_prob.class_id')->order_by('class_prob.class_id, class_prob.prob_order')->get_where('class_prob', array('class_user.user_id'=>urldecode($user)))->result();
