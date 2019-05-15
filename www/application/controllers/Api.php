@@ -91,8 +91,13 @@ class Api extends CI_Controller {
 			$fn_out = RESULTPATH.$sol_id .'/' . $testId . '.out';
 			$fn_diff = RESULTPATH.$sol_id .'/' . $testId . '.diff';
 			//system("diff -y -W 130 \"$fn_out\" \"$fn_ans\" > \"$fn_diff\"", $res);
-			$res = diff(file_get_contents($fn_out), file_get_contents($fn_ans));
-			if ($res!=0) $hardAC = 0;
+			if (!file_exists($fn_out)) {
+				$hardAC = 0;
+			}
+			else {
+				$res = diff(file_get_contents($fn_out), file_get_contents($fn_ans));
+				if ($res!=0) $hardAC = 0;
+			}
 		}
 		$data = array('result'=>'wait');
 		if ($this->input->post('res')==1) $data['result']='CE';

@@ -68,7 +68,7 @@ foreach ($results as $testId=>$res) {
 }
 ?>
 
-<div style="position:fixed; bottom:10px; right:10px; background-color:#EEE; border-radius:5px; padding:10px">
+<div style="position:fixed; bottom:10px; right:10px; background-color:#EEE; border-radius:5px; padding:10px; opacity:0.5">
 <form action="<?=site_url('Judge/do_judge/'.$info->solution_id)?>" method="POST">
 <input type="submit" name="result" value="codeAC" style="height:120px; width:150px; border-radius:15px; font-size:2em; background-color:green">
 <input type="submit" name="result" value="AC" style="height:120px; width:150px; border-radius:15px; font-size:5em; background-color:lightgreen">
